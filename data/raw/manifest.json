@@ -1,0 +1,11 @@
+{
+  "MPC_Observations_433Eros.json": {
+    "Size": 1746932,
+    "sha256": "c688da69568413c541fb619e546009b92a98c7aca18578a399210db35a9599ac"
+  },
+  "MPC_Observatory_Codes.json": {
+    "Size": 277334,
+    "sha256": "e8f569a9cdd364491f0da2ad5cc353e81ddf57f3ed890ae699b77ccbb54cedb3"
+  },
+  "Download_Time": "2026-11-04 22:29:57"
+}
