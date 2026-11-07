@@ -74,7 +74,7 @@ def R2(jd_utc, d, h, L):
     return np.stack([x,y,z], axis = 1)
 
 
-def R5(jd_utc, r0, v0, t0, d, h, L):
+def R5(jd_utc, r0, v0, t0, d, h, L, light_delay = True):
     secondsPerDay = 60 * 60 * 24
     jd_tt = jd_utc + 69.184/secondsPerDay 
 
@@ -87,16 +87,20 @@ def R5(jd_utc, r0, v0, t0, d, h, L):
     
     Publisher's Page of the Referenced Book: uscibooks.aip.org
     '''
-    T = 0
-    for _ in range(0,3):
-        r4 = R4(r0,v0,t0,jd_tt-T)
-        r5 = r4-r3
-        T = np.linalg.norm(r5, axis = 1)/c
+    if (light_delay == True):
+        T = 0
+        for _ in range(0,3):
+            r4 = R4(r0,v0,t0,jd_tt-T)
+            r5 = r4-r3
+            T = np.linalg.norm(r5, axis = 1)/c
 
+    else:
+        r4 = R4(r0,v0,t0,jd_tt)
+        r5 = r4-r3
     return r5
 
 def result(jd_utc, r0, v0, t0, d, h, L):
-    r5 = R5(jd_utc, r0, v0, t0, d, h, L)
+    r5 = R5(jd_utc, r0, v0, t0, d, h, L, light_delay = True)
     x = r5[:, 0]
     y = r5[:, 1]
     z = r5[:, 2]
@@ -106,5 +110,7 @@ def result(jd_utc, r0, v0, t0, d, h, L):
 
     return RA, Dec
 
-
+'''
+This gives us the direction in which Eros is but not the distance
+'''
 

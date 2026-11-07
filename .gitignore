@@ -1,3 +1,5 @@
 .venv/
 xExplanation.txt
 .DS_Store
+__pycache__/
+data/processed/

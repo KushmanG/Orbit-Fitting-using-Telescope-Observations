@@ -30,7 +30,6 @@ import urllib.request
 
 # API URLS and file names:
 mpc_api = "https://data.minorplanetcenter.net/api/get-obs"
-obscodes_url = "https://minorplanetcenter.net/Extended_Files/obscodes_extended.json.gz"
 
 mpc_path = "MPC_Observations_433Eros.json"
 obscodes_path = "MPC_Observatory_Codes.json"
@@ -98,14 +97,8 @@ def mpc_obs():
 
 # 2. Observatory codes ------------------------------------------------------
 def obscodes():
-    try:
-        blob = gzip.decompress(fetch(obscodes_url, timeout=120))
-    except Exception as e:
-        # The MPC site is sometimes slow. The exact same file is shipped in a tiny
-        # pip package (pip3 install mpc-obscodes), so fall back to that copy.
-        print(f"    MPC download failed ({e}); using the copy in the mpc-obscodes package")
-        from mpc_obscodes import mpc_obscodes
-        blob = mpc_obscodes.read_bytes()
+    from mpc_obscodes import mpc_obscodes
+    blob = mpc_obscodes.read_bytes()
     save(obscodes_path, blob)
     print(f"    {len(json.loads(blob))} observatory codes")
 
